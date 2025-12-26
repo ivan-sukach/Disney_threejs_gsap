@@ -2,21 +2,20 @@ import * as THREE from 'three';
 import { gsap } from 'gsap';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 const canvas = document.getElementById('canvas');
 
-// Function to create gradient background
+// Create gradient background
 function createGradientTexture() {
   const canvas2d = document.createElement('canvas');
   canvas2d.width = 256;
   canvas2d.height = 256;
   const context = canvas2d.getContext('2d');
 
-  // Створюємо вертикальний градієнт від синього до лайм-зеленого
   const gradient = context.createLinearGradient(0, 0, 0, 256);
-  gradient.addColorStop(0, '#1A4FF7'); // Яскравий синій зверху
-  gradient.addColorStop(1, '#3AED68'); // Лайм-зелений знизу
+  gradient.addColorStop(0, '#1A4FF7');
+  gradient.addColorStop(1, '#3AED68');
 
   context.fillStyle = gradient;
   context.fillRect(0, 0, 256, 256);
@@ -41,7 +40,7 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.set(0, 4, 18);
 camera.lookAt(0, 2, 0);
 
-// Створюємо рендерер
+// Create renderer
 const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -95,14 +94,12 @@ const cubeMaterial = new THREE.MeshStandardMaterial({
   clearcoatRoughness: 0.3,
 });
 
-// 24 rows 7 lines
 const cubes = [];
 const cubesPerRow = 16;
 const cubesPerColumn = 6;
 for (let i = 0; i < cubesPerRow; i++) {
   for (let j = 0; j < cubesPerColumn; j++) {
     const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-    // get cube width
     const { width, height } = cube.geometry.parameters;
 
     cube.position.set(((i * 0.5) + (width / 2)) - (cubesPerRow * 0.25), ((j * 0.5) + (height / 2)), 0);
